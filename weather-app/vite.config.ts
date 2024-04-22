@@ -9,4 +9,7 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
   },
+  optimizeDeps: {
+    exclude: ['js-big-decimal']
+  },
 });

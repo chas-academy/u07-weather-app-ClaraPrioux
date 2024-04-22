@@ -1,11 +1,14 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import { useUserLocationStore } from "../store/useUserLocationStore";
 
 const GeolocationComponent = () => {
-  const [userPosition, setUserPosition] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
-  const [status, setStatus] = useState("");
+  const userPosition = useUserLocationStore((state: any) => state.userLocation);
+  const setUserPosition = useUserLocationStore(
+    (state: any) => state.updateUserLocation
+  );
+
+  const [status, setStatus]: any = useState(null);
 
   const getLocation = () => {
     if (!navigator.geolocation) {
