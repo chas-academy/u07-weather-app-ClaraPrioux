@@ -1,5 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserLocationStore } from "../store/useUserLocationStore";
 
 const GeolocationComponent = () => {
@@ -30,9 +30,12 @@ const GeolocationComponent = () => {
     }
   };
 
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return (
     <>
-      <button onClick={() => getLocation()}>Get location</button>
       <h2>Coordinates</h2>
       {status && <p>{status}</p>}
       {userPosition?.latitude && <p>Latitude: {userPosition?.latitude}</p>}
