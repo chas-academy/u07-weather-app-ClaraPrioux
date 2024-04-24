@@ -57,7 +57,7 @@ const Weather = () => {
           
     {/* 5 DAYS WEATHER FORECAST */}
 
-          {weather.list.filter((element: any, index: number) => index % 8 === 0).map((element: any) => { // % 8 === 0: every 8th element to give us data every 24 hours
+          {weather.list.filter((_element: any, index: number) => index % 8 === 0).map((element: any) => { // % 8 === 0: every 8th element to give us data every 24 hours
             const date = new Date((element.dt + weather.city.timezone) * 1000);
             const weekday = date.toLocaleDateString(undefined, { weekday: 'short' });
     
