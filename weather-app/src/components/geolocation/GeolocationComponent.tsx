@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useUserLocationStore } from "../store/useUserLocationStore";
 
 const GeolocationComponent = () => {
-  const userPosition = useUserLocationStore((state: any) => state.userLocation);
   const setUserPosition = useUserLocationStore(
     (state: any) => state.updateUserLocation
   );
@@ -36,10 +35,10 @@ const GeolocationComponent = () => {
 
   return (
     <>
-      <h2>Coordinates</h2>
       {status && <p>{status}</p>}
-      {userPosition?.latitude && <p>Latitude: {userPosition?.latitude}</p>}
-      {userPosition?.longitude && <p>Longitude: {userPosition?.longitude}</p>}
+      {status === "Loading" && (
+        <img src="./src/assets/loading.gif" alt="Loading" />
+      )}
     </>
   );
 };
