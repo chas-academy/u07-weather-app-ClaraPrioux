@@ -37,7 +37,7 @@ const GeolocationComponent = () => {
     <>
       {status && <p>{status}</p>}
       {status === "Loading" && (
-        <img src="./src/assets/loading.gif" alt="Loading" />
+        <img src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1262.gif" alt="Loading" />
       )}
     </>
   );
