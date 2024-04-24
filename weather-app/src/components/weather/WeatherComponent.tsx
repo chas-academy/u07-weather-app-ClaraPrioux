@@ -20,41 +20,23 @@ const Weather = () => {
     setWeather(result);
   }
 
-  interface WeatherEmojiMap {
-    [key: string]: string;
-  }
-  
-  const weatherEmojiMap: WeatherEmojiMap = {
-    "clear sky": "☀️",
-    "few clouds": "🌤️",
-    "scattered clouds": "⛅",
-    "broken clouds": "☁️",
-    "overcast clouds": "☁️",
-    "shower rain": "🌦️",
-    "rain": "🌧️",
-    "light rain": "🌧️",
-    "thunderstorm": "⛈️",
-    "snow": "❄️",
-    "mist": "🌫️"
-  };
-
   useEffect(() => {
     getWeather();
   },[userPosition]); // Re-fetch weather when userPosition changes
 
   return (
+    // TODAY'S WEATHER
     <>
       {weather && (
         <>
           <h1>
             {weather.city.name} -- {weather.city.country}
           </h1>
-          {/* Display current weather details */}
           {weather.list.length > 0 && (
             <>
               <p>
                 Current Weather:<br></br>
-                Temperature: {weather.list[0].main.temp}°C / {Math.round((weather.list[0].main.temp * 9/5) + 32)}°F<br></br>
+                Temperature: {Math.round((weather.list[0].main.temp))}°C / {Math.round((weather.list[0].main.temp * 9/5) + 32)}°F<br></br>
                 Wind: {weather.list[0].wind.speed} m/s<br></br>
                 Humidity: {weather.list[0].main.humidity}%<br></br>
                 Sunrise: {new Date(weather.city.sunrise * 1000).toLocaleTimeString()}<br></br>
@@ -62,16 +44,28 @@ const Weather = () => {
               </p>
             </>
           )}
-          {/* Display forecast */}
           {weather.list.slice(1,8).map((element:any) => {
             const date = new Date((element.dt + weather.city.timezone) * 1000);
-            const weatherDescription = element.weather[0].description.toLowerCase();
-            const emoji = weatherEmojiMap[weatherDescription] || ""; // If the weather description is not found in the map, default to empty string
             return (
               <p key={element.dt}>
                 {date.toUTCString()}<br></br>
-                {element.main.temp}°C<br></br>
-                {emoji}
+                {Math.round(element.main.temp)}°C<br></br>
+                <img src={`https://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="Weather Icon" />
+              </p>
+            );
+          })}
+          
+    {/* 5 DAYS WEATHER FORECAST */}
+
+          {weather.list.filter((element: any, index: number) => index % 8 === 0).map((element: any) => { // % 8 === 0: every 8th element to give us data every 24 hours
+            const date = new Date((element.dt + weather.city.timezone) * 1000);
+            const weekday = date.toLocaleDateString(undefined, { weekday: 'short' });
+    
+            return (
+              <p key={element.dt}>
+                {weekday}<br></br>
+                {Math.round(element.main.temp)}°C<br></br> {/* I wanted to have the daily min/max temperature, but not possible with this free current weather API */}
+                <img src={`https://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="Weather Icon" />
               </p>
             );
           })}
