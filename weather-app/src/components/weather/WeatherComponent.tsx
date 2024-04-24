@@ -26,52 +26,42 @@ const Weather = () => {
 
   return (
     // TODAY'S WEATHER
-    <>
+    <div className="w-full max-w-screen-sm bg-white p-10 rounded-xl ring-8 ring-white ring-opacity-40">
       {weather && (
         <>
-          <h1>
-            {weather.city.name} -- {weather.city.country}
-          </h1>
-          {weather.list.length > 0 && (
-            <>
-              <p>
-                Current Weather:<br></br>
-                Temperature: {Math.round((weather.list[0].main.temp))}°C / {Math.round((weather.list[0].main.temp * 9/5) + 32)}°F<br></br>
-                Wind: {weather.list[0].wind.speed} m/s<br></br>
-                Humidity: {weather.list[0].main.humidity}%<br></br>
-                Sunrise: {new Date(weather.city.sunrise * 1000).toLocaleTimeString()}<br></br>
-                Sunset: {new Date(weather.city.sunset * 1000).toLocaleTimeString()}<br></br>
-              </p>
-            </>
-          )}
-          {weather.list.slice(1,8).map((element:any) => {
-            const date = new Date((element.dt + weather.city.timezone) * 1000);
-            return (
-              <p key={element.dt}>
-                {date.toUTCString()}<br></br>
-                {Math.round(element.main.temp)}°C<br></br>
-                <img src={`https://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="Weather Icon" />
-              </p>
-            );
-          })}
           
-    {/* 5 DAYS WEATHER FORECAST */}
-
-          {weather.list.filter((_element: any, index: number) => index % 8 === 0).map((element: any) => { // % 8 === 0: every 8th element to give us data every 24 hours
-            const date = new Date((element.dt + weather.city.timezone) * 1000);
-            const weekday = date.toLocaleDateString(undefined, { weekday: 'short' });
-    
-            return (
-              <p key={element.dt}>
-                {weekday}<br></br>
-                {Math.round(element.main.temp)}°C<br></br> {/* I wanted to have the daily min/max temperature, but not possible with this free current weather API */}
-                <img src={`https://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="Weather Icon" />
+          {weather.list.length > 0 && (
+            <div className="flex justify-between">
+              <div className="flex flex-col">
+                <img src={`https://openweathermap.org/img/wn/${weather.list[0].weather[0].icon}@2x.png`} alt="Weather Icon" className="w-1/2"/>
+                <div className="flex"><p className="text-4xl font-bold text-left">{Math.round((weather.list[0].main.temp))}°C</p><p className="text-lg font-bold"> ( {Math.round((weather.list[0].main.temp * 9/5) + 32)}°F)</p><br></br></div>
+                <h1 className="font-semibold mt-1 text-gray-500 text-lg text-left">{weather.city.name} -- {weather.city.country}</h1>
+              </div> 
+              <p className="text-right just flex items-center">
+                {weather.list[0].wind.speed} m/s  🌬️<br></br>
+                {weather.list[0].main.humidity}% 💧<br></br>
+                {new Date(weather.city.sunrise * 1000).toLocaleTimeString()} ☀️ <br></br>
+                {new Date(weather.city.sunset * 1000).toLocaleTimeString()} 🌙<br></br>
               </p>
-            );
-          })}
+            </div>
+          )}
+          <div className="flex justify-between mt-12">
+            {weather.list.slice(1,8).map((element:any) => {
+              const date = new Date((element.dt + weather.city.timezone) * 1000);
+              return (
+                <div className="flex flex-col items-center">
+                <p key={element.dt}>
+                  {date.getHours()}<br></br>
+                  <img src={`https://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`} alt="Weather Icon" />
+                  {Math.round(element.main.temp)}°C<br></br>
+                </p>
+                </div>
+              );
+            })}
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

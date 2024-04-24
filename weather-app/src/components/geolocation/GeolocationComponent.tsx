@@ -35,9 +35,8 @@ const GeolocationComponent = () => {
 
   return (
     <>
-      {status && <p>{status}</p>}
       {status === "Loading" && (
-        <img src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1262.gif" alt="Loading" />
+        <img src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700" alt="Loading" className="w-1/4" />
       )}
     </>
   );
