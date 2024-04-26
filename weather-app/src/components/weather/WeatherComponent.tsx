@@ -1,19 +1,18 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useUserLocationStore } from "../store/useUserLocationStore";
-// import { mockData } from "./weatherMock";
 
 const Weather = () => {
   const userPosition = useUserLocationStore((state: any) => state.userLocation); // userPosition is obtained by calling the hook previously created and retrieve the user location
   const [weather, setWeather]: any = useState(null);
-  //const APP_KEY = import.meta.env.REACT_APP_API_KEY;
+  const APP_KEY = import.meta.env.VITE_REACT_APP_API_KEY;
 
   const getWeather = async () => {
     if (!userPosition || userPosition.latitude === 0 || userPosition.longitude === 0) {
       // Don't fetch weather if userPosition is not available yet or if it's (0, 0)
       return;
     }
-    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${userPosition.latitude}&lon=${userPosition.longitude}&units=metric&appid=969cb5f571df73c797f4a4a00742805f`; //${APP_KEY}
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${userPosition.latitude}&lon=${userPosition.longitude}&units=metric&appid=${APP_KEY}`;
     const respons = await fetch(url);
     const result = await respons.json();
     console.log(result);
@@ -26,9 +25,9 @@ const Weather = () => {
 
   return (
     // TODAY'S WEATHER
-    <div className="w-full max-w-screen-sm bg-white p-10 rounded-xl ring-8 ring-white ring-opacity-40">
+    <div>
       {weather && (
-        <>
+        <div className="w-full max-w-screen-sm bg-white p-10 rounded-xl ring-8 ring-white ring-opacity-40">
           
           {weather.list.length > 0 && (
             <div className="flex justify-between">
@@ -59,7 +58,7 @@ const Weather = () => {
               );
             })}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
