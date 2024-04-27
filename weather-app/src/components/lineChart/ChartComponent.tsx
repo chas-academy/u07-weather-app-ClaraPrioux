@@ -17,7 +17,7 @@ const ChartComponent = () => {
         const response = await fetch(url);
         const result = await response.json();
 
-        // description object we will use -> Create an interface maybe for that?
+        // description object we will use
         const weatherByDay: { [key: string]: { 
             temps: number[], // contains temperatures for a specific day
             rains: number[], // rainfall amounts for a specific day
@@ -26,7 +26,7 @@ const ChartComponent = () => {
             } 
         } = {};
 
-        // organizing the weather data by day
+        // Organizes the weather data by day
         result.list.forEach((item: any) => {
             const itemDate = new Date(item.dt_txt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit' });
             if (!weatherByDay[itemDate]) {

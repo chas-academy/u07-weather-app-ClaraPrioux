@@ -65,14 +65,3 @@ const Weather = () => {
 };
 
 export default Weather;
-
-// NEED TO UNDERSTAND BETTER THE PROCESS
-
-// Weather is the functionnal component 
-// [weather, setWeather] are the state variables + at first, initialized to null + updated when fetch() with fetched data SO weather = fetched data object 
-// useEffect => execute getWeather() when first render, so when component mounts
-
-// in JSX => check if weather is not null anymore, so if weather is fetched data 
-// if yes => renders => specific properties from the weather data object (so city name, country, list of weather info)
-
-// to have weather info for different times => iteration (loop) of list => use map() for this => and to select a specific property in the map function, we use element.
