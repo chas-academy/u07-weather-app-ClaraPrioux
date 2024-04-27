@@ -1,6 +1,7 @@
 import './App.css'
 import ForecastComponent from './components/forecast5days/ForecastComponent'
 import GeolocationComponent from './components/geolocation/GeolocationComponent'
+import ChartComponent from './components/lineChart/ChartComponent'
 import WeatherComponent from './components/weather/WeatherComponent'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <GeolocationComponent></GeolocationComponent>
         <WeatherComponent></WeatherComponent>
         <ForecastComponent></ForecastComponent>
+        <ChartComponent></ChartComponent>
       </div>
     </>
   )

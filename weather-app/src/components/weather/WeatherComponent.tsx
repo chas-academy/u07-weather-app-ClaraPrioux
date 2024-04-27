@@ -27,12 +27,12 @@ const Weather = () => {
     // TODAY'S WEATHER
     <div>
       {weather && (
-        <div className="w-full max-w-screen-sm bg-white p-10 rounded-xl ring-8 ring-white ring-opacity-40">
+        <div className="w-full max-w-screen-sm bg-white p-10 pt-0 rounded-xl ring-8 ring-white ring-opacity-40">
           
           {weather.list.length > 0 && (
             <div className="flex justify-between">
               <div className="flex flex-col">
-                <img src={`https://openweathermap.org/img/wn/${weather.list[0].weather[0].icon}@2x.png`} alt="Weather Icon" className="w-1/2"/>
+                <img src={`https://openweathermap.org/img/wn/${weather.list[0].weather[0].icon}@2x.png`} alt="Weather Icon"/>
                 <div className="flex"><p className="text-4xl font-bold text-left">{Math.round((weather.list[0].main.temp))}°C</p><p className="text-lg font-bold"> ( {Math.round((weather.list[0].main.temp * 9/5) + 32)}°F)</p><br></br></div>
                 <h1 className="font-semibold mt-1 text-gray-500 text-lg text-left">{weather.city.name} -- {weather.city.country}</h1>
               </div> 
@@ -45,7 +45,7 @@ const Weather = () => {
             </div>
           )}
           <div className="flex justify-between mt-12">
-            {weather.list.slice(1,8).map((element:any) => {
+            {weather.list.slice(0,7).map((element:any) => {
               const date = new Date((element.dt + weather.city.timezone) * 1000);
               return (
                 <div className="flex flex-col items-center">
